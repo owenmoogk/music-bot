@@ -1,4 +1,0 @@
-add default song when no song is playing
-	defaul state in react music player component
-
-add error msg when someone deosnt have perms
