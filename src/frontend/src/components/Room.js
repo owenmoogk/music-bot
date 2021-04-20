@@ -4,30 +4,38 @@ import CreateRoomPage from "./CreateRoomPage";
 import MusicPlayer from "./MusicPlayer";
 
 export default class Room extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      votesToSkip: 2,
-      guestCanPause: false,
-      isHost: false,
-      showSettings: false,
-      spotifyAuthenticated: false,
-      song: {},
-    };
-    this.roomCode = this.props.match.params.roomCode;
-    this.leaveButtonPressed = this.leaveButtonPressed.bind(this);
-    this.updateShowSettings = this.updateShowSettings.bind(this);
-    this.renderSettingsButton = this.renderSettingsButton.bind(this);
-    this.renderSettings = this.renderSettings.bind(this);
-    this.getRoomDetails = this.getRoomDetails.bind(this);
-    this.authenticateSpotify = this.authenticateSpotify.bind(this);
-    this.getCurrentSong = this.getCurrentSong.bind(this);
-    this.getRoomDetails();
-  }
+	constructor(props) {
+		super(props);
+		this.state = {
+			votesToSkip: 2,
+			guestCanPause: false,
+			isHost: false,
+			showSettings: false,
+			spotifyAuthenticated: false,
+			song: {
+				'title': 'Play Some Music',
+				'artist': 'Owen Moogk',
+				'time': 1,
+				'duration': 4,
+				'is_playing': false,
+				'image_url': "https://www.melodynest.com/wp-content/uploads/2019/06/SPACE_album-mock.jpg"
+			},
+		};
+		this.roomCode = this.props.match.params.roomCode;
+		this.leaveButtonPressed = this.leaveButtonPressed.bind(this);
+		this.updateShowSettings = this.updateShowSettings.bind(this);
+		this.renderSettingsButton = this.renderSettingsButton.bind(this);
+		this.renderSettings = this.renderSettings.bind(this);
+		this.getRoomDetails = this.getRoomDetails.bind(this);
+		this.authenticateSpotify = this.authenticateSpotify.bind(this);
+		this.getCurrentSong = this.getCurrentSong.bind(this);
+		this.getRoomDetails();
+	}
 
-  componentDidMount() {
-    this.interval = setInterval(this.getCurrentSong, 1000);
-  }
+  	componentDidMount() {
+	  	this.getCurrentSong()
+    	this.interval = setInterval(this.getCurrentSong, 1000);
+  	}
 
 	componentWillUnmount() {
 		clearInterval(this.interval);
