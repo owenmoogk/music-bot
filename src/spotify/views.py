@@ -118,3 +118,36 @@ class PlaySong(APIView):
             return Response({}, status=status.HTTP_204_NO_CONTENT)
         
         return Response({}, status=status.HTTP_403_FORBIDDEN)
+
+class SkipSong(APIView):
+	def post(self, request, format=None):
+		room_code = self.request.session.get('room_code')
+		room = Room.objects.filter(code=room_code)
+
+		if room.exists():
+			room = room[0]
+		else:
+			return Response({'Error': 'Room does not exist'}, status=status.HTTP_404_NOT_FOUND)
+
+		if self.request.session.session_key == room.host:
+			skip_song(room.host)
+		else:
+			pass
+
+		return Response({}, status.HTTP_204_NO_CONTENT)
+
+# you can only go back if you are the host. Thats it. suck it up.
+class PrevSong(APIView):
+	def post(self, request, format=None):
+		room_code = self.request.session.get('room_code')
+		room = Room.objects.filter(code=room_code)
+
+		if room.exists():
+			room = room[0]
+		else:
+			return Response({'Error': 'Room does not exist'}, status=status.HTTP_404_NOT_FOUND)
+
+		if self.request.session.session_key == room.host:
+			prev_song(room.host)
+
+		return Response({}, status.HTTP_204_NO_CONTENT)

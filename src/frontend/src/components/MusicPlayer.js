@@ -9,6 +9,7 @@ import {
 import PlayArrowIcon from "@material-ui/icons/PlayArrow";
 import PauseIcon from "@material-ui/icons/Pause";
 import SkipNextIcon from "@material-ui/icons/SkipNext";
+import SKipPreviousIcon from '@material-ui/icons/SkipPrevious'
 
 export default class MusicPlayer extends Component {
 	constructor(props) {
@@ -17,8 +18,8 @@ export default class MusicPlayer extends Component {
 
 	pauseSong() {
 		const requestOptions = {
-		method: "PUT",
-		headers: { "Content-Type": "application/json" },
+			method: "PUT",
+			headers: { "Content-Type": "application/json" },
 		};
 		fetch("/spotify/pause", requestOptions)
 		.then(() => this.props.update())
@@ -26,11 +27,27 @@ export default class MusicPlayer extends Component {
 
 	playSong() {
 		const requestOptions = {
-		method: "PUT",
-		headers: { "Content-Type": "application/json" },
+			method: "PUT",
+			headers: { "Content-Type": "application/json" },
 		};
 		fetch("/spotify/play", requestOptions)
 		.then(() => this.props.update())
+	}
+	
+	skipSong() {
+		const requestOptions = {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+		};
+		fetch("/spotify/skip", requestOptions)
+	}
+	
+	prevSong() {
+		const requestOptions = {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+		};
+		fetch("/spotify/prev", requestOptions)
 	}
 
 	render() {
@@ -44,22 +61,36 @@ export default class MusicPlayer extends Component {
 			</Grid>
 			<Grid item align="center" xs={8}>
 				<Typography component="h5" variant="h5">
-				{this.props.title}
+					{this.props.title}
 				</Typography>
 				<Typography color="textSecondary" variant="subtitle1">
-				{this.props.artist}
+					{this.props.artist}
 				</Typography>
 				<div>
-				<IconButton
-					onClick={() => {
-					this.props.is_playing ? this.pauseSong() : this.playSong();
-					}}
-				>
-					{this.props.is_playing ? <PauseIcon /> : <PlayArrowIcon />}
-				</IconButton>
-				<IconButton>
-					<SkipNextIcon />
-				</IconButton>
+
+					{/* prev button */}
+					{this.props.isHost ?
+						<IconButton onClick = {() => {
+							this.prevSong()
+						}}>
+							<SKipPreviousIcon />
+						</IconButton>
+						:
+						<div></div>
+					}
+					
+					<IconButton
+						onClick={() => {
+						this.props.is_playing ? this.pauseSong() : this.playSong();
+						}}
+					>
+						{this.props.is_playing ? <PauseIcon /> : <PlayArrowIcon />}
+					</IconButton>
+					<IconButton onClick = {() => {
+						this.skipSong()
+					}}>
+						<SkipNextIcon />
+					</IconButton>
 				</div>
 			</Grid>
 			</Grid>
