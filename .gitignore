@@ -1,2 +1,4 @@
 
 src/spotify/credentials.py
+src/db.sqlite3
+src/music_controller/settings.py
