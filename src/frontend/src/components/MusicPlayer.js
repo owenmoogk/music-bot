@@ -40,6 +40,7 @@ export default class MusicPlayer extends Component {
 			headers: { "Content-Type": "application/json" },
 		};
 		fetch("/spotify/skip", requestOptions)
+		.then(() => this.props.update())
 	}
 	
 	prevSong() {
@@ -48,6 +49,7 @@ export default class MusicPlayer extends Component {
 			headers: { "Content-Type": "application/json" },
 		};
 		fetch("/spotify/prev", requestOptions)
+		.then(() => this.props.update())
 	}
 
 	render() {
