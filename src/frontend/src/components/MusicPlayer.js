@@ -20,7 +20,8 @@ export default class MusicPlayer extends Component {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
     };
-    fetch("/spotify/pause", requestOptions);
+    fetch("/spotify/pause", requestOptions)
+	.then(() => this.props.update())
   }
 
   playSong() {
@@ -28,7 +29,8 @@ export default class MusicPlayer extends Component {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
     };
-    fetch("/spotify/play", requestOptions);
+    fetch("/spotify/play", requestOptions)
+	.then(() => this.props.update())
   }
 
   render() {
