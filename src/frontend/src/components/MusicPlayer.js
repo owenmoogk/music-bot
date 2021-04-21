@@ -82,7 +82,7 @@ export default class MusicPlayer extends Component {
 						}
 
 						{/* pause button */}
-						{this.props.guestCanPause ?
+						{this.props.guestCanPause | this.props.isHost ?
 							<IconButton
 								onClick={() => {
 								this.props.is_playing ? this.pauseSong() : this.playSong();
@@ -96,7 +96,7 @@ export default class MusicPlayer extends Component {
 						<IconButton onClick = {() => {
 							this.skipSong()
 						}}>
-							<SkipNextIcon />
+							<SkipNextIcon /> &nbsp; {this.props.votes} / {this.props.votes_required}
 						</IconButton>
 					</div>
 				</Grid>

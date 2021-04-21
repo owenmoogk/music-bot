@@ -143,7 +143,7 @@ export default class Room extends Component {
 			color="primary"
 			onClick={() => this.updateShowSettings(true)}
 			>
-			Settings
+			Host Settings
 			</Button>
 		</Grid>
 		);
